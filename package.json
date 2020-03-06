@@ -2,7 +2,7 @@
   "name": "typescript",
   "version": "0.1.0",
   "private": true,
-  "homepage":"https://Alekskarb.github.io/Typescript",
+  "homepage": "https://Alekskarb.github.io/Typescript",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -11,9 +11,12 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.7",
+    "axios": "^0.19.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
+    "redux": "latest",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -38,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-redux": "^7.2.0",
+    "redux-thunk": "latest"
   }
 }
