@@ -1,19 +1,28 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
+import {TaskType, TodoType} from "./types/entityies";
 
-class TodoListTask extends React.Component {
+type TDTaskType = {
+    task: TaskType,
+    changeStatus: (taskId: string, status: number)=> void,
+    changeTitle: (taskId: string, title: string) => void
+    deleteTask: (taskId: string) => void,
+    // isDone: boolean
+}
+
+class TodoListTask extends React.Component<TDTaskType> {
 
     state = {
         editMode: false,
         title: this.props.task.title
     };
 
-    onIsDoneChanged = (e) => {
+    onIsDoneChanged = (e:ChangeEvent<HTMLInputElement>) => {
         let status = e.currentTarget.checked ? 2 : 0;
         this.props.changeStatus(this.props.task.id, status);
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e:ChangeEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value});
     };
 
@@ -29,7 +38,7 @@ class TodoListTask extends React.Component {
         this.props.deleteTask(this.props.task.id);
     };
     render = () => {
-        let containerCssClass = this.props.task.isDone ? "todoList-task done" : "todoList-task";
+        let containerCssClass = this.props.task.completed ? "todoList-task done" : "todoList-task";
         let priotityTitle = "";
         switch (this.props.task.priority) {
             case 0: priotityTitle = "Low"; break;

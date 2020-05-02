@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 
-class AddNewItemForm extends React.Component {
+type AddNewItemType = {
+    addItem: (newText: string) => void,
+}
+
+class AddNewItemForm extends React.Component<AddNewItemType> {
 
     state = {
         error: false,
@@ -21,14 +25,14 @@ class AddNewItemForm extends React.Component {
         }
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e:ChangeEvent<HTMLInputElement>) => {
         this.setState({
             error: false,
             title: e.currentTarget.value
         });
     };
 
-    onKeyPress = (e) => {
+    onKeyPress = (e:any) => { ////not typing
         if (e.key === "Enter") {
             this.onAddItemClick();
         }
