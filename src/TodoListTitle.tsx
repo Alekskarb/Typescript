@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
+import {TodoType} from "./types/entityies";
 
-class TodoListTitle extends React.Component {
+type TitleType = {
+    updateTitle: (title: string)=> void,
+    title: string,
+
+}
+type TDTitleType = TitleType
+
+class TodoListTitle extends React.Component <TDTitleType> {
 
     state = {
         editMode: false,
         title: this.props.title
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e:ChangeEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value});
     };
 

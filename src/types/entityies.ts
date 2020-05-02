@@ -1,7 +1,7 @@
 export type TodoType = {
     id: string
-    addedDate: string
-    order: number
+    addedDate?: string
+    order?: number
     title: string
     tasks: TaskType[]
 }

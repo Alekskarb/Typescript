@@ -11,16 +11,23 @@ import {
     changeTask,
     deleteTodo, deleteTask, updateTitle
 } from "./reducer";
-import {TodoType} from "./types/entityies";
+import {TaskType, TodoType} from "./types/entityies";
 
 type MDTPType = {
-    getTasks: (todoId: string) => void,
-    addTask: (newText: string, taskId: string) => void,
-    // tasks: Array<string>,
+    getTasks: (todoId: string) => void, // input parameters (left) &&  output parameters (right)
+    addTask: (newText: string, todoId: string) => void,
+    changeTask: (taskId: string, todoId: string, task: TaskType, obj: any) => void,
+    deleteTodo:(todoId: string) => void,
+    deleteTask:(todoId: string, taskId: string) => void,
+    updateTitle:(title: string, todoId: string) => void,
 }
 
 type TodolistType = TodoType & MDTPType;
 
+// type X = number;
+// type Y<T> = T extends number ? boolean : string;
+//
+// const y: Y<undefined> = 1
 
 class TodoList extends React.Component <TodolistType> {
 
@@ -55,11 +62,11 @@ class TodoList extends React.Component <TodolistType> {
         this.props.changeTask(taskId, this.props.id, task, obj);
     };
 
-    changeStatus = (taskId:string, status) => {
+    changeStatus = (taskId:string, status:number) => {
         this.changeTask(taskId, {status});
     };
 
-    changeTitle = (taskId, title) => {
+    changeTitle = (taskId:string, title:string) => {
         this.changeTask(taskId, {title});
     };
 
@@ -67,11 +74,11 @@ class TodoList extends React.Component <TodolistType> {
         this.props.deleteTodo(this.props.id)
     };
 
-    deleteTask = (taskId) => {
+    deleteTask = (taskId: string) => {
         this.props.deleteTask(taskId, this.props.id);
     };
 
-    updateTitle = (title) => {
+    updateTitle = (title:string) => {
         this.props.updateTitle(title, this.props.id)
     };
 
@@ -81,13 +88,13 @@ class TodoList extends React.Component <TodolistType> {
             <div className="todoList">
             <div className = "todoList-header">
             <div className = "wrapper" >
-            <TodoListTitle title = {this.props.title} updateTitle = {this.updateTitle}/>
-        < button onClick = {this.deleteTodolist} > X < /button>
+            <TodoListTitle title = {this.props.title} updateTitle = {this.updateTitle} />
+        < button onClick = {this.deleteTodolist} > X </button>
             </div>
             <AddNewItemForm addItem = {this.addTask}/>
         </div>
 
-        < TodoListTasks
+        <TodoListTasks
         changeStatus = {this.changeStatus}
         changeTitle = {this.changeTitle}
         deleteTask = {this.deleteTask}
@@ -106,9 +113,8 @@ class TodoList extends React.Component <TodolistType> {
         }
         />
         < TodoListFooter changeFilter = {this.changeFilter} filterValue = {this.state.filterValue} />
-        < /div>
-    )
-        ;
+        </div>
+    );
     }
 }
 
