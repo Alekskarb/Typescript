@@ -6,6 +6,11 @@ type GetTasksResponseType = {
     resultCode: number
     messages: string[],
 }
+type PostTodoType = {
+    data: { item: TodoType }
+    resultCode: number
+    messages: string[],
+}
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/todo-lists",
