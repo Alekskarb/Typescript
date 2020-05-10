@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import TodoListTask from "./TodoListTask";
-import {TaskType, TodoType} from "./types/entityies";
+import {TaskType} from "./types/entityies";
 
 type TDTasksType = {
     changeStatus: (taskId: string, status: number) => void,
-    deleteTask:(taskId: string) => void,
-    changeTitle:(title: string, todoId: string) => void,
-tasks: TaskType[],
+    deleteTask: (taskId: string) => void,
+    changeTitle: (title: string, todoId: string) => void,
+    tasks: TaskType[],
 }
 
 class TodoListTasks extends React.Component<TDTasksType> {

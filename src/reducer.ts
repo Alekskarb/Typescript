@@ -201,8 +201,8 @@ type TodoActionType =
 // Thunk creator
 export const getTodolists = () => (dispatch:any) => {
     api.getTodolists()
-        .then(res => {
-            dispatch(getTodolistsSuccess(res.data));
+        .then(data => {
+            dispatch(getTodolistsSuccess(data));
         })
 };
 

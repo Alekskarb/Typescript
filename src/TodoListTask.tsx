@@ -1,13 +1,12 @@
 import React, {ChangeEvent} from 'react';
 import './App.css';
-import {TaskType, TodoType} from "./types/entityies";
+import {TaskType} from "./types/entityies";
 
 type TDTaskType = {
     task: TaskType,
     changeStatus: (taskId: string, status: number)=> void,
     changeTitle: (taskId: string, title: string) => void
     deleteTask: (taskId: string) => void,
-    // isDone: boolean
 }
 
 class TodoListTask extends React.Component<TDTaskType> {
