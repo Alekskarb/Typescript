@@ -13,6 +13,11 @@ import {
 } from "./reducer";
 import {TaskType, TodoType} from "./types/entityies";
 
+type StateType = {
+    // filterValue: "All" | "Completed" | "Active"
+    filterValue: string
+}
+
 type MDTPType = {
     getTasks: (todoId: string) => void, // input parameters (left) &&  output parameters (right)
     addTask: (newText: string, todoId: string) => void,
@@ -26,12 +31,11 @@ type TodolistType = TodoType & MDTPType;
 
 // type X = number;
 // type Y<T> = T extends number ? boolean : string;
-//
 // const y: Y<undefined> = 1
 
-class TodoList extends React.Component <TodolistType> {
+class TodoList extends React.Component <TodolistType, StateType> {
 
-    state = {
+    state: StateType = {
         filterValue: "All"
     };
 
@@ -47,7 +51,7 @@ class TodoList extends React.Component <TodolistType> {
         this.props.addTask(newText, this.props.id)
     };
 
-    changeFilter = (newFilterValue: string) => {
+    changeFilter = (newFilterValue:string) => {
         this.setState({
             filterValue: newFilterValue
         });

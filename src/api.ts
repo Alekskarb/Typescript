@@ -6,19 +6,20 @@ type TasksResponseType = {
     totalCount: number
     error: string,
 }
-type ActiveTaskResponseType = {
-    data: {item: TaskType}
+
+type CommonResponseType<T> = {
+    data: T
     resultCode: number
-    messages: string[],
+    messages: string[]
 }
+
 type TodoResponseType = {
     data: { item: TodoType }
     resultCode: number
-    messages: string[],
+    messages: string[]
 }
-type TitleType = {
-    title: string,
-}
+
+
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/todo-lists",
@@ -37,16 +38,16 @@ export const api = {
         return instance.delete<TodoResponseType>(`/${todolistId}`)
     },
     updateTodolistTitle(title: string, todolistId: string) {
-        return instance.put<TitleType>(`/${todolistId}`, {title: title})
+        return instance.put<CommonResponseType<{}>>(`/${todolistId}`, {title: title})
     },
     getTasks(todolistId: string) {
         return instance.get<TasksResponseType>(`/${todolistId}/tasks`)
     },
     createTask(newTaskTitle: string, todolistId: string) {
-        return instance.post<ActiveTaskResponseType>(`/${todolistId}/tasks`, {title: newTaskTitle});
+        return instance.post<CommonResponseType<{item: TaskType}>>(`/${todolistId}/tasks`, {title: newTaskTitle});
     },
     updateTask(taskId: string, todolistId: string, task: any) {
-        return instance.put<ActiveTaskResponseType>(`/${todolistId}/tasks/${taskId}`, task);
+        return instance.put<CommonResponseType<{item: TaskType}>>(`/${todolistId}/tasks/${taskId}`, task);
     },
     deleteTask(taskId: string, todolistId: string) {
         return instance.delete<TodoResponseType>(`/${todolistId}/tasks/${taskId}`)
