@@ -1,15 +1,18 @@
 import axios from "axios";
-import {TodoType} from "./types/entityies";
+import {TaskType, TodoType} from "./types/entityies";
 
-type GetTasksResponseType = {
+type TasksResponseType = {
+    items: TaskType[]
+    totalCount: number
+    error: string,
+}
+type TodoResponseType = {
     data: { item: TodoType }
     resultCode: number
     messages: string[],
 }
-type PostTodoType = {
-    data: { item: TodoType }
-    resultCode: number
-    messages: string[],
+type TitleType = {
+    title: string,
 }
 
 const instance = axios.create({
@@ -23,16 +26,16 @@ export const api = {
         return instance.get<TodoType[]>('').then(res=> res.data)
     },
     createTodolist(title: string) {
-        return instance.post("", {title})
+        return instance.post<TodoResponseType>("", {title})
     },
     deleteTodolist(todolistId: string) {
-        return instance.delete(`/${todolistId}`)
+        return instance.delete<TodoResponseType>(`/${todolistId}`)
     },
     updateTodolistTitle(title: string, todolistId: string) {
-        return instance.put(`/${todolistId}`, {title: title})
+        return instance.put<TitleType>(`/${todolistId}`, {title: title})
     },
     getTasks(todolistId: string) {
-        return instance.get(`/${todolistId}/tasks`)
+        return instance.get<TaskType[]>(`/${todolistId}/tasks`)
     },
     createTask(newTaskTitle: string, todolistId: string) {
         return instance.post(`/${todolistId}/tasks`, {title: newTaskTitle});
