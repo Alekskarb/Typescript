@@ -6,6 +6,11 @@ type TasksResponseType = {
     totalCount: number
     error: string,
 }
+type ActiveTaskResponseType = {
+    data: {item: TaskType}
+    resultCode: number
+    messages: string[],
+}
 type TodoResponseType = {
     data: { item: TodoType }
     resultCode: number
@@ -35,16 +40,16 @@ export const api = {
         return instance.put<TitleType>(`/${todolistId}`, {title: title})
     },
     getTasks(todolistId: string) {
-        return instance.get<TaskType[]>(`/${todolistId}/tasks`)
+        return instance.get<TasksResponseType>(`/${todolistId}/tasks`)
     },
     createTask(newTaskTitle: string, todolistId: string) {
-        return instance.post(`/${todolistId}/tasks`, {title: newTaskTitle});
+        return instance.post<ActiveTaskResponseType>(`/${todolistId}/tasks`, {title: newTaskTitle});
     },
     updateTask(taskId: string, todolistId: string, task: any) {
-        return instance.put(`/${todolistId}/tasks/${taskId}`, task);
+        return instance.put<ActiveTaskResponseType>(`/${todolistId}/tasks/${taskId}`, task);
     },
     deleteTask(taskId: string, todolistId: string) {
-        return instance.delete(`/${todolistId}/tasks/${taskId}`)
+        return instance.delete<TodoResponseType>(`/${todolistId}/tasks/${taskId}`)
     }
 };
 
