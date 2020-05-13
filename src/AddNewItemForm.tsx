@@ -4,10 +4,13 @@ import './App.css';
 type AddNewItemType = {
     addItem: (newText: string) => void,
 }
+type StateType = {
+    error: boolean
+    title: string
+};
+class AddNewItemForm extends React.Component<AddNewItemType, StateType> {
 
-class AddNewItemForm extends React.Component<AddNewItemType> {
-
-    state = {
+    state: StateType = {
         error: false,
         title: ""
     };

@@ -5,10 +5,13 @@ type TDFooterType = {
     changeFilter: (taskId: string) => void,
     filterValue: string
 }
+type StateType = {
+    isHidden: boolean
+}
 
-class TodoListFooter extends React.Component<TDFooterType> {
+class TodoListFooter extends React.Component<TDFooterType, StateType> {
 
-    state = {
+    state: StateType = {
         isHidden: false
     };
 

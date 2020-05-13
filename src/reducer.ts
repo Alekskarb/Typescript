@@ -19,7 +19,7 @@ const initialState: InitialStateType = {
     todolists: []
 };
 
-const todolistReducer = (state: InitialStateType = initialState, action: TodoActionType) => {
+const todolistReducer = (state: InitialStateType = initialState, action: TodoActionType): InitialStateType => {
     switch (action.type) {
         case SET_TASKS_SUCCESS:
             return {
@@ -109,7 +109,8 @@ const todolistReducer = (state: InitialStateType = initialState, action: TodoAct
 
 export default todolistReducer;
 
-// Action creators
+// Action creators typification
+
 const updateTaskSuccess = (taskId: string, obj: any, todolistId: string): UpdateTaskSuccessActionType => ({
     type: UPDATE_TASK_SUCCESS,
     taskId,
@@ -187,7 +188,7 @@ type GetTodolistsSuccessType = {
     type: typeof SET_TODOLISTS_SUCCESS //"TodoList/Reducer/UPDATE_TASK_SUCCESS";
     todolists: TodoType[]
 }
-
+// Action typification
 type TodoActionType =
     UpdateTaskSuccessActionType
     | DeleteTodoSuccessActionType
@@ -195,18 +196,19 @@ type TodoActionType =
     | UpdateTodolistTitleSuccessType
     | AddTaskSuccessType
     | GetTasksSuccessType
-| AddTodolistSuccessType
-| GetTodolistsSuccessType
+    | AddTodolistSuccessType
+    | GetTodolistsSuccessType
 
-// Thunk creator
-export const getTodolists = () => (dispatch:any) => {
+// Thunk creator typification
+
+export const getTodolists = () => (dispatch: any) => {
     api.getTodolists()
         .then(data => {
             dispatch(getTodolistsSuccess(data));
         })
 };
 
-export const addTodolist = (title:string) => (dispatch:any) => {
+export const addTodolist = (title: string) => (dispatch: any) => {
     api.createTodolist(title)
         .then(res => {
             let todolist = res.data.data.item;
@@ -214,7 +216,7 @@ export const addTodolist = (title:string) => (dispatch:any) => {
         });
 };
 
-export const getTasks = (todoId:string) => (dispatch:any) => {
+export const getTasks = (todoId: string) => (dispatch: any) => {
     api.getTasks(todoId)
         .then(res => {
             let allTasks = res.data.items;
@@ -222,7 +224,7 @@ export const getTasks = (todoId:string) => (dispatch:any) => {
         });
 };
 
-export const addTask = (title:string, todoId:string) => (dispatch:any) => {
+export const addTask = (title: string, todoId: string) => (dispatch: any) => {
     api.createTask(title, todoId)
         .then(res => {
             let newTask = res.data.data.item;
@@ -230,29 +232,28 @@ export const addTask = (title:string, todoId:string) => (dispatch:any) => {
         });
 };
 
-export const changeTask = (taskId:string, todoId: string, task: TaskType, obj: any) => (dispatch:any) => {
+export const changeTask = (taskId: string, todoId: string, task: TaskType, obj: any) => (dispatch: any) => {
     api.updateTask(taskId, todoId, task)
         .then(res => {
             dispatch(updateTaskSuccess(taskId, obj, todoId))
         })
 };
 
-export const deleteTodo = (todoId:string) => (dispatch:any) => {
+export const deleteTodo = (todoId: string) => (dispatch: any) => {
     api.deleteTodolist(todoId)
         .then(res => {
             dispatch(deleteTodoSuccess(todoId))
         });
 };
 
-
-export const deleteTask = (taskId:string, todoId:string) => (dispatch:any) => {
+export const deleteTask = (taskId: string, todoId: string) => (dispatch: any) => {
     api.deleteTask(taskId, todoId)
         .then(res => {
             dispatch(deleteTaskSuccess(todoId, taskId))
         });
 };
 
-export const updateTitle = (title:string, todoId:string) => (dispatch:any) => {
+export const updateTitle = (title: string, todoId: string) => (dispatch: any) => {
     api.updateTodolistTitle(title, todoId)
         .then(res => {
             dispatch(updateTodolistTitleSuccess(todoId, title))

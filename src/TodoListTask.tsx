@@ -2,6 +2,11 @@ import React, {ChangeEvent} from 'react';
 import './App.css';
 import {TaskType} from "./types/entityies";
 
+type StateType = {
+    editMode: boolean
+    title: string
+};
+
 type TDTaskType = {
     task: TaskType,
     changeStatus: (taskId: string, status: number)=> void,
@@ -9,9 +14,9 @@ type TDTaskType = {
     deleteTask: (taskId: string) => void,
 }
 
-class TodoListTask extends React.Component<TDTaskType> {
+class TodoListTask extends React.Component<TDTaskType, StateType> {
 
-    state = {
+    state: StateType = {
         editMode: false,
         title: this.props.task.title
     };

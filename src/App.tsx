@@ -32,8 +32,7 @@ class App extends React.Component<PropsType> {
     };
 
     render = () => {
-        const todolists = this.props.todolists.map(tl => {
-
+        const todolists = this.props.todolists.map((tl) => {
             return <TodoList key={tl.id}
                              id={tl.id}
                              title={tl.title}
@@ -59,5 +58,5 @@ const mapStateToProps = (state:AppStateType): MapStatePropsType => {
     }
 };
 
-export default connect(mapStateToProps, {getTodolists, addTodolist})(App);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {getTodolists, addTodolist})(App);
 //<MapStatePropsType, MapDispatchPropsType, null, null>
