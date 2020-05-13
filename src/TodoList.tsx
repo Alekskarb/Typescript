@@ -123,5 +123,5 @@ class TodoList extends React.Component <TodolistType, StateType> {
 }
 
 
-export default connect(null, {getTasks, addTask, changeTask, deleteTodo, deleteTask, updateTitle})(TodoList);
+export default connect<{}, MDTPType, {}, StateType>(null, {getTasks, addTask, changeTask, deleteTodo, deleteTask, updateTitle})(TodoList);
 
